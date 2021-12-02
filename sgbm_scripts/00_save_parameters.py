@@ -10,7 +10,7 @@ Create two files in which we store i) the parameters used for extracting the pit
 
 root_analysis_dir = '/hpc/nit/users/takerkart/sgbm_bip'
 
-experiment = 'nsbip_dev01'
+experiment = 'Test_github'
 
 # parameters used for the extraction of sulcal pits
 alpha = '0.03'
