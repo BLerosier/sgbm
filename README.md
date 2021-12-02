@@ -1,4 +1,4 @@
 # sgbm
 Structural Graph-Based Morphometry
 
-Verison modifié ISTS
+Verison modifiée ISTS
