@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 
 # read parameters and subjects lists
-root_analysis_dir = '/hpc/nit/users/takerkart/sgbm_bip'
-experiment = 'nsbip_dev01'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Test'
+experiment = 'pits_analysis_test1'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 

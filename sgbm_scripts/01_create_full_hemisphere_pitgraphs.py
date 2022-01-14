@@ -5,16 +5,24 @@ import sys
 import numpy as np
 #from scipy.spatial import Delaunay
 from sklearn.neighbors import kneighbors_graph
+###Pour importer le module graph, il faut que le fichier sgbm_lib soit dans le PyhtonPath
+###Pour faire ça il faut lancer la ligne de commande suivante dans la console unix
+###setenv PYTHONPATH /netapp/vol1_psy/basepsy/FS60/SGBM_Github/sgbm/sgbm_lib
 import graph
 import joblib
 
 
 # read parameters and subjects lists
-input_data_dir = '/hpc/scalp/data/BIPS_database/data_neurospin/processed'
-pits_subdir = 'sulcal_pits'
-mesh_subdir = 'gifti_converted'
-root_analysis_dir = '/hpc/nit/users/takerkart/sgbm_bip'
-experiment = 'nsbip_dev01'
+###Chemin vers les dossier des sujets
+input_data_dir = '/netapp/vol1_psy/basepsy/FS60'
+###Chemin vers le fichier "subjectXXXX_Lwhite_basins.gii"
+pits_subdir = 'puits/SulcalPits'
+###Chemin vers le fichier "subjectXXXX_L/Rh.shpere.reg.gii"
+mesh_subdir = 'SGBM_Test'
+# Le root_analysis_dir est le même pour tous les scripts
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Test'
+# Le nom "experiment" est le même pour tous les scripts
+experiment = 'pits_analysis_test1'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 subjectslist_path = op.join(analysis_dir,'subjects_list.jl')
@@ -37,7 +45,7 @@ def compute_fullgraphs(hem):
         print(subject)
 
         # get basins texture (-1 in poles; everything 0 or above is a real basin with one pit)
-        basins_tex_gii = nb.load(op.join(input_data_dir, pits_subdir, subject, '{}_{}white_basins.gii'.format(subject, hem)))
+        basins_tex_gii = nb.load(op.join(input_data_dir, pits_subdir, subject,'{}_{}white_basins.gii'.format(subject, hem)))
         basins_tex = basins_tex_gii.darrays[0].data
 
         # get pits texture (0 everywhere except single vertex with one where the pits are)

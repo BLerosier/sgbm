@@ -7,10 +7,10 @@ import joblib
 Create two files in which we store i) the parameters used for extracting the pits and ii) the list of subjects and groups
 '''
 
-
-root_analysis_dir = '/hpc/nit/users/takerkart/sgbm_bip'
-
-experiment = 'Test_github'
+# Localisation du répertoire où l'on trouve les dossiers FS de nos sujets
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Test'
+# Nom du dossier qui sera créé dans le "root_analysis_dir"
+experiment = 'pits_analysis_test1'
 
 # parameters used for the extraction of sulcal pits
 alpha = '0.03'
@@ -21,21 +21,20 @@ area = 50
 param_string = 'D%sR%sA%s' % (dn,r,area)
 
 # the subjects lists
-bip = ['794288333904', '358764900547', '202443709905', '426760919448']
+pat = ['p0078', 'p0081', 'p0087']
 
-ctrl = ['975557055860', '582268889106', '891755849910', '134725465305']
+ctrl = ['t0490', 't0746', 't0806']
 
 
 groups_list = []
-groups_list.append(bip)
+groups_list.append(pat)
 groups_list.append(ctrl)
 
-groupnames_list = ['bip','cntrl']
+groupnames_list = ['pat','ctrl']
 
 subjects_list = []
 for group in groups_list:
     subjects_list.extend(group)
-
 
 
 # create directory where all the analyses will be performed
