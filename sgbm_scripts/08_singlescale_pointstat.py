@@ -17,7 +17,7 @@ from sklearn.preprocessing import StandardScaler
 import time
 
 # read parameters and subjects lists
-root_analysis_dir = '/riou/work/scalp/hpc/auzias/sgbm'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 n_vertex_per_sphere = 50
 
 
@@ -73,7 +73,7 @@ def point_stat(experiment, hem, graph_type, graph_param, n_sl_points, n_permuts,
 
 
     # convert fullcortex cdf to z-scores, we call them zprobasfullcortex!
-    # this is the single scale z-score introduced in the paper submitted to MEDIA 
+    # this is the single scale z-score introduced in the paper submitted to MEDIA
     point_zproba_fullcortex_permuted = st.norm.ppf(point_cdf_fullcortex_permuted)
 
 
@@ -106,7 +106,7 @@ def point_stat(experiment, hem, graph_type, graph_param, n_sl_points, n_permuts,
                            '%s_based' % graph_type,
                            'pointstats',
                            'sl_%s_points_%dpermuts' % (n_sl_points,n_permuts))
-    try: 
+    try:
         os.makedirs(pointres_dir)
         print('Creating new directory: %s' % pointres_dir)
     except:
@@ -141,12 +141,12 @@ def main():
     n_sl_points = 2500
     n_permuts = 2000
     '''
-    
+
     args = sys.argv[1:]
     if len(args) < 5:
         print("Wrong number of arguments")
         #usage()
-	sys.exit(2)
+        sys.exit(2)
     else:
         experiment = args[0]
         hem = args[1]
@@ -156,7 +156,7 @@ def main():
         n_permuts = int(args[5])
 
 
-    n_folds = 10
+    n_folds = 3
     C=1.
     diagnorm_option=True
     '''for hem in hemispheres_list:
@@ -169,8 +169,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-

@@ -6,8 +6,8 @@ import joblib
 import scipy.spatial.distance as sd
 
 # read parameters and subjects lists
-root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Test'
-experiment = 'pits_analysis_test1'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
+experiment = 'searchlight_analysis'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 
@@ -58,7 +58,7 @@ def define_fibonacci_points(hem, n_sl_points, radius=100):
             if point_pits_min_distance > radius:
                 # this is a bad point!
                 points_count[point_ind] = points_count[point_ind] + 1
-    
+
     # keep only the points for which a pit is close by!
     sl_points_inds = np.where(points_count==0)[0]
     print(len(sl_points_inds))
@@ -85,7 +85,7 @@ def define_fibonacci_points(hem, n_sl_points, radius=100):
 def main():
     args = sys.argv[1:]
     print(args)
-    
+
     if len(args) < 2:
         print("Wrong number of arguments, run it as: %run 02_define_sphere_sampling.py lh 2500")
         #usage()
@@ -98,4 +98,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

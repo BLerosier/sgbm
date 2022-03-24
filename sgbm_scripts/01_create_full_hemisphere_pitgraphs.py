@@ -15,14 +15,14 @@ import joblib
 # read parameters and subjects lists
 ###Chemin vers les dossier des sujets
 input_data_dir = '/netapp/vol1_psy/basepsy/FS60'
-###Chemin vers le fichier "subjectXXXX_Lwhite_basins.gii"
+###Chemin vers le fichier "subjectXXXX_L/Rwhite_basins.gii"
 pits_subdir = 'puits/SulcalPits'
 ###Chemin vers le fichier "subjectXXXX_L/Rh.shpere.reg.gii"
-mesh_subdir = 'SGBM_Test'
+mesh_subdir = ''
 # Le root_analysis_dir est le même pour tous les scripts
-root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Test'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 # Le nom "experiment" est le même pour tous les scripts
-experiment = 'pits_analysis_test1'
+experiment = 'searchlight_analysis'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 subjectslist_path = op.join(analysis_dir,'subjects_list.jl')
@@ -171,7 +171,7 @@ def main():
 
     for hem in hemispheres_list:
         compute_fullgraphs(hem)
-    
+
 
 if __name__ == "__main__":
     main()

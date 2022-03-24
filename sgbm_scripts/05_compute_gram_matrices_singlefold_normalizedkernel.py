@@ -7,10 +7,10 @@ import scipy.spatial.distance as sd
 from pitskernel import sxdnewkernel
 
 
-root_analysis_dir = '/hpc/nit/users/takerkart/sgbm_bip'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 
 
-def searchlight_compute_gram_matrices_singlefold_normalizedkernel(experiment, hem, graph_type, graph_param, n_sl_points, fold_ind, n_folds=2, subkernels_option=False):
+def searchlight_compute_gram_matrices_singlefold_normalizedkernel(experiment, hem, graph_type, graph_param, n_sl_points, fold_ind, n_folds=3, subkernels_option=False):
     analysis_dir = op.join(root_analysis_dir, experiment)
 
     if subkernels_option:
@@ -134,5 +134,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

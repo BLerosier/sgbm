@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 
 # read parameters and subjects lists
-root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Test'
-experiment = 'pits_analysis_test1'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
+experiment = 'searchlight_analysis'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 
@@ -44,7 +44,7 @@ def compute_localgraphs(graph_type, graph_param, hem, n_sl_points):
     pitgraphs_path = op.join(fullgraphs_dir,'full_%s_pitgraphs.jl' % hem)
     pitgraphs_dict = joblib.load(pitgraphs_path)
 
-    # create input data X with the fullbrain graphs, and labels y 
+    # create input data X with the fullbrain graphs, and labels y
     X = []
     for subject in samples_subjects_list:
         X.append(pitgraphs_dict[subject])
@@ -115,7 +115,7 @@ def main():
     args = sys.argv[1:]
 
 
-    
+
     if len(args) < 2:
         print("Wrong number of arguments, run it as: %run 03_searchlight_compute_local_graphs lh radius 2500")
         sys.exit(2)
@@ -130,9 +130,7 @@ def main():
     for graph_param in graph_param_list:
         print(graph_param)
         compute_localgraphs(graph_type, graph_param, hem, n_sl_points)
-    
+
 
 if __name__ == "__main__":
     main()
-
-

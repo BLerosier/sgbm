@@ -8,8 +8,8 @@ from sklearn.model_selection import StratifiedKFold
 
 
 # read parameters and subjects lists
-root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Test'
-experiment = 'pits_analysis_test1'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
+experiment = 'searchlight_analysis'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 sampleslist_path = op.join(analysis_dir,'samples_list.jl')
@@ -18,7 +18,7 @@ sampleslist_path = op.join(analysis_dir,'samples_list.jl')
 n_examples = len(y)
 y = np.array(y)
 
-        
+
 def create_xval_indices(n_folds):
 
 
@@ -40,7 +40,7 @@ def create_xval_indices(n_folds):
     for train_inds, test_inds in skf_xval_orig.split(y, y):
         train_inds_list.append(train_inds)
         test_inds_list.append(test_inds)
-        
+
     print('Saving cross-validation indices to %s' % xval_path)
     joblib.dump([train_inds_list,test_inds_list],xval_path,compress=3)
 
@@ -55,5 +55,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

@@ -7,7 +7,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
 
-root_analysis_dir = '/hpc/nit/users/takerkart/sgbm_bip'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 
 
 '''
@@ -23,7 +23,7 @@ C_list = 10. ** np.arange(1,2)
 def permuted_searchlight_classif(experiment, hem, graph_type, graph_param, n_sl_points, n_folds, n_permuts, C=1e-2, subkernels_option=False, diagnorm_option=True):
 
     analysis_dir = op.join(root_analysis_dir, experiment)
-    
+
     if subkernels_option:
         n_kernels = 7
     else:
@@ -156,7 +156,7 @@ def main():
         n_sl_points = int(args[4])
         n_permuts = int(args[5])
 
-    n_folds = 2
+    n_folds = 3
     permuted_searchlight_classif(experiment, hem, graph_type, graph_param, n_sl_points, n_folds, n_permuts, C=1., subkernels_option = False, diagnorm_option = True)
 
 
@@ -165,21 +165,19 @@ def main():
     #graph_param = 4
     #graph_type = 'radius'
     #graph_param = 50
-    
+
     graph_type = 'conn'
     graph_param = 1
     hem = 'rh'
     n_sl_points = 1000
-    
+
     area = 100
-    
+
     n_permuts = 100
-    
+
     run_searchlight(graph_type, graph_param, area, hem, n_sl_points, n_permuts)
     '''
-    
+
 
 if __name__ == "__main__":
     main()
-
-

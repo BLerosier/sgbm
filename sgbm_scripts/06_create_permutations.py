@@ -7,8 +7,8 @@ import joblib
 
 
 # read parameters and subjects lists
-root_analysis_dir = '/hpc/nit/users/takerkart/sgbm_bip'
-experiment = 'nsbip_dev01'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
+experiment = 'searchlight_analysis'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 sampleslist_path = op.join(analysis_dir,'samples_list.jl')
@@ -17,7 +17,7 @@ sampleslist_path = op.join(analysis_dir,'samples_list.jl')
 n_examples = len(y)
 y = np.array(y)
 
-        
+
 def create_permuted_labels_within_xval_folds(n_permuts,n_folds):
 
 
@@ -50,7 +50,7 @@ def create_permuted_labels_within_xval_folds(n_permuts,n_folds):
             y_test_permuted_list_thisfold.append(y_test[current_test_permut])
         y_train_permuted_list.append(y_train_permuted_list_thisfold)
         y_test_permuted_list.append(y_test_permuted_list_thisfold)
-            
+
     # Save only the permuted labels! (including the original non permuted ones
     # as the first item of the lists)
     permutations_dir = op.join(analysis_dir,'permutations')
@@ -69,7 +69,7 @@ def main():
     args = sys.argv[1:]
     if len(args) < 1:
         n_permuts = 50
-        n_folds = 2
+        n_folds = 3
     else:
         n_permuts = int(args[0])
         n_folds = int(args[1])
@@ -81,5 +81,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
