@@ -29,7 +29,7 @@ for graph_param in graph_params_list:
     for hem in hemispheres_list:
         for n_sl_points in n_sl_points_list:
             #cmd = "frioul_batch 'python %s/07_permuted_searchlight_classif.py %s %s %s %d %d %d'" % (coderoot_dir, experiment, hem, graph_type, graph_param, n_sl_points, n_permuts)
-            cmd = "qsub -cwd -q all.q -b y ml python/3.9.5; python %s/07_permuted_searchlight_classif.py %s %s %s %d %d %d" % (coderoot_dir, experiment, hem, graph_type, graph_param, n_sl_points, n_permuts)
+            cmd = "qsub -cwd -q all.q -b y -V python %s/07_permuted_searchlight_classif.py %s %s %s %d %d %d" % (coderoot_dir, experiment, hem, graph_type, graph_param, n_sl_points, n_permuts)
             #a = commands.getoutput(cmd)
             a = subprocess.call(cmd, shell=True)
             print(cmd)

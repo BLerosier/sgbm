@@ -20,9 +20,10 @@ from pitslearn import get_clusters
 
 
 
-root_analysis_dir = '/riou/work/scalp/hpc/auzias/sgbm'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 n_vertex_per_sphere = 50
-graph_param_list = np.arange(30,92,5)
+#graph_param_list = np.arange(30,92,5)
+graph_param_list = [50]
 
 #def cluster_stat(graph_type, graph_param_list, hem, n_sl_points, n_folds, n_permuts):
 
@@ -84,13 +85,13 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
     '''max_size = 3
     all_means = permuted_skf_list.mean(1) - 0.5
     all_stds = permuted_skf_list.std(1)
-    
+
     all_t_stats = np.divide(all_means, all_stds) / np.sqrt(n_folds)
     '''
     all_mean_stats = np.zeros([len(graph_param_list) - n_scales + 1,n_sl_points,n_permuts])
     for scale in range(len(graph_param_list) - n_scales + 1):
         all_mean_stats[scale,:,:] = all_pointstat_permuted[scale:(scale+n_scales),:,:].mean(0)
-    
+
     all_max_stats = np.nanmax(all_mean_stats,0)
     print(all_max_stats)
 
@@ -127,7 +128,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
         thisProba = float(len(np.where(maxClusterStatList>=mass)[0])) / len(maxClusterStatList)
         correctedClusterProbas.append(thisProba)
     correctedClusterProbas = np.array(correctedClusterProbas)
-        
+
 
     # compute critical cluster mass
     print(len(maxClusterStatList))
@@ -155,7 +156,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
     else:
         significantClusterMasses = []
 
-    
+
     nbrTrueClusters = len(trueClusterMasses)
     nbrSignificantClusters = len(significantClusterMasses)
     correctedpvaluesClusterMap = 0.06 * np.ones(n_sl_points)
@@ -186,7 +187,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
     if not(op.exists(res_dir)):
         os.makedirs(res_dir)
         print('Creating new directory: %s' % res_dir)
-    
+
     # read texture of the pole mask, to be excluded from further analyses... (cluster stats & co)
     masktex_path = op.join(spheresampling_dir,'%s.fsaverage.polemask.%dpoints.gii' % (hem,n_sl_points))
     masktex_gii = ng.read(masktex_path)
@@ -203,7 +204,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
     darray = ng.GiftiDataArray().from_array(tex1Data.astype(np.float32),intent)
     gii = ng.GiftiImage(darrays=[darray])
     ng.write(gii, clustertex1_path)
-    
+
     # second texture: best-scale at each point
     clustertex2_path = op.join(res_dir,'%s.bestscale.%s_allscales_max%dmeans.gii' % (hem,graph_type,n_scales))
     # DIFFERENCE with monoscale
@@ -214,7 +215,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
     darray = ng.GiftiDataArray().from_array(tex2Data.astype(np.float32),intent)
     gii = ng.GiftiImage(darrays=[darray])
     ng.write(gii, clustertex2_path)
-    
+
     '''
     #####################
     # save cluster stats!
@@ -224,7 +225,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
         os.makedirs(res_dir)
         print('Creating new directory: %s' % res_dir)
     '''
-    
+
     # save infos and stats about the cluster thresholding process
     info_path = op.join(res_dir,'%s.cluster_infos_thresh%.3f_%s_allscales_max%dmeans.jl' % (hem,threshold,graph_type, n_scales))
     joblib.dump([correctedClusterProbas,
@@ -249,7 +250,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
     gii = ng.GiftiImage(darrays=[darray])
     print('Writing gifti texture: %s' % clustertex1_path)
     ng.write(gii, clustertex1_path)
-    
+
     # second texture: z-score of point proba displayed within each cluster; nothing outside
     clustertex2_path = op.join(res_dir,'%s.cluster_zscores_thresh%.3f_%s_allscales_max%dmeans.gii' % (hem,threshold,graph_type,n_scales))
     tex2Data = np.tile(maxzscoresClusterMap,[n_vertex_per_sphere,1]).T.flatten()
@@ -267,7 +268,7 @@ def multiscale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts,
     gii = ng.GiftiImage(darrays=[darray])
     print('Writing gifti texture: %s' % clustertex3_path)
     ng.write(gii, clustertex3_path)
-    
+
     # fourth texture: z-score of point proba displayed within each cluster; nothing outside
     clustertex4_path = op.join(res_dir,'%s.cluster_bestscale_thresh%.3f_%s_allscales_max%dmeans.gii' % (hem,threshold,graph_type,n_scales))
     tex4Data = np.tile(significantClusterBestScaleMap,[n_vertex_per_sphere,1]).T.flatten()
@@ -303,6 +304,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-

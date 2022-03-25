@@ -39,7 +39,7 @@ for cortex_scaling in cortex_scaling_list:
         for hem in hemispheres_list:
             for n_sl_points in n_sl_points_list:
                 #cmd = "frioul_batch 'python %s/10_singlescale_cluster_stats.py %s %s %s %d %d %.3f %s %s %s'" % (coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, cortex_scaling, pointstat, thresholdtype)
-                cmd = "qsub -cwd -q all.q -b y python %s/10_singlescale_cluster_stats.py %s %s %s %d %d %.3f %s %s %s" % (coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, cortex_scaling, pointstat, thresholdtype)
+                cmd = "qsub -cwd -q all.q -b y -V python %s/10_singlescale_cluster_stats.py %s %s %s %d %d %.3f %s %s %s" % (coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, cortex_scaling, pointstat, thresholdtype)
                 #a = commands.getoutput(cmd)
                 a = subprocess.call(cmd, shell=True)
                 print(cmd)

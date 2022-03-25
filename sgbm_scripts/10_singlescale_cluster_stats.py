@@ -13,9 +13,10 @@ from pitslearn import get_clusters
 
 
 
-root_analysis_dir = '/riou/work/scalp/hpc/auzias/sgbm'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 n_vertex_per_sphere = 50
-graph_param_list = np.arange(30,92,5)
+graph_param_list = [50]
+#graph_param_list = np.arange(30,92,5)
 #graph_param_list = np.arange(30,41,5)
 #graph_param_list = np.array([50])
 #def cluster_stat(graph_type, graph_param_list, hem, n_sl_points, n_folds, n_permuts):
@@ -47,7 +48,7 @@ def singlescale_cluster_stat(experiment, hem, graph_type, n_sl_points, n_permuts
     n_folds = 10
     threshold = 1.645
     '''
-    
+
     ###############################
     # load permuted classif results
     ###############################
@@ -379,4 +380,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

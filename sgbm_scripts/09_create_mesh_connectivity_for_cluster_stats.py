@@ -14,11 +14,11 @@ import nibabel.gifti as ng
 ###############################
 
 # read parameters and subjects lists
-root_analysis_dir = '/riou/work/scalp/hpc/auzias/sgbm'
-experiment = 'abide_jbhi_pits01'
+root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
+experiment = 'searchlight_analysis'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
-n_sl_points = 2500
+n_sl_points = 50
 
 hemispheres_list = ['rh','lh']
 
@@ -47,5 +47,3 @@ for hem in hemispheres_list:
 
     conn_path = op.join(spheresampling_dir,'%s.conn_matrix_without_mask.%dpoints.jl' % (hem,n_sl_points))
     joblib.dump(connMatrix.astype(bool),conn_path,compress=3)
-
-

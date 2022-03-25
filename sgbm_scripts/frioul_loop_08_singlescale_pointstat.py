@@ -30,7 +30,7 @@ for graph_param in graph_params_list:
     for hem in hemispheres_list:
         for n_sl_points in n_sl_points_list:
             #cmd = "frioul_batch 'python %s/08_singlescale_pointstat.py %s %s %s %d %d %d'" % (coderoot_dir, experiment, hem, graph_type, graph_param, n_sl_points, n_permuts)
-            cmd = "qsub -cwd -q all.q -b y python %s/08_singlescale_pointstat.py %s %s %s %d %d %d" % (coderoot_dir, experiment, hem, graph_type, graph_param, n_sl_points, n_permuts)
+            cmd = "qsub -cwd -q all.q -b y -V python %s/08_singlescale_pointstat.py %s %s %s %d %d %d" % (coderoot_dir, experiment, hem, graph_type, graph_param, n_sl_points, n_permuts)
             #a = commands.getoutput(cmd)
             a = subprocess.call(cmd, shell=True)
             print(cmd)
