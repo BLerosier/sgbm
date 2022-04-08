@@ -16,10 +16,10 @@ coderoot_dir = '/netapp/vol1_psy/basepsy/FS60/SGBM_Github/sgbm/sgbm_scripts'
 
 
 
-n_sl_points_list = [50]
+n_sl_points_list = [2500]
 graph_type = 'radius'
 #n_permuts = 5000
-n_permuts = 50
+n_permuts = 5000
 #graph_param_list = np.arange(30,92,5)
 graph_param_list = [50]
 n_scales_list = np.arange(1,len(graph_param_list)+1,2)
@@ -33,14 +33,15 @@ pointstat = "classifscorezprobafullcortex"
 thresholdtype = "pointstat"
 
 hemispheres_list = ['rh','lh']
-experiment = 'searchlight_analysis'
+experiment = 'searchlight_HC_SZ'
 for threshold in threshold_list:
-    for n_scales in n_scales_list:
-        for hem in hemispheres_list:
-            for n_sl_points in n_sl_points_list:
-                for cortex_scaling in cortex_scaling_list:
-                    #cmd = "frioul_batch 'python %s/11_multiscale_cluster_stats.py %s %s %s %d %d %.3f %d %s %s'" % (coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, n_scales, cortex_scaling, pointstat)
-                    cmd = "qsub -cwd -q all.q -b y -V python %s/11_multiscale_cluster_stats.py %s %s %s %d %d %.3f %d %s %s" % (coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, n_scales, cortex_scaling, pointstat)
-                    #a = commands.getoutput(cmd)
-                    a = subprocess.call(cmd, shell=True)
-                    print(cmd)
+	for n_scales in n_scales_list:
+		for hem in hemispheres_list:
+			for n_sl_points in n_sl_points_list:
+				for cortex_scaling in cortex_scaling_list:
+					#cmd = "frioul_batch 'python %s/11_multiscale_cluster_stats.py %s %s %s %d %d %.3f %d %s %s'" % (coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, n_scales, cortex_scaling, pointstat)
+					#cmd = "qsub -cwd -q all.q -b y -V python %s/11_multiscale_cluster_stats.py %s %s %s %d %d %.3f %d %s %s" % (coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, n_scales, cortex_scaling, pointstat)
+					cmd = "qsub -cwd -q all.q -b y -V -e /netapp/vol1_psy/basepsy/FS60/%s/log_files/loop11_%s_%s_errors.txt -o /netapp/vol1_psy/basepsy/FS60/%s/log_files/loop11_%s_%s_output.txt  python %s/11_multiscale_cluster_stats.py %s %s %s %d %d %.3f %d %s %s" % (experiment, hem, threshold, experiment, hem, threshold, coderoot_dir, experiment, hem, graph_type, n_sl_points, n_permuts, threshold, n_scales, cortex_scaling, pointstat)
+					#a = commands.getoutput(cmd)
+					a = subprocess.call(cmd, shell=True)
+					print(cmd)

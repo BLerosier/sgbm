@@ -3,6 +3,7 @@ import os
 import numpy as np
 import sys
 import joblib
+import nibabel as nib
 from sklearn.neighbors import kneighbors_graph
 import nibabel.gifti as ng
 
@@ -15,10 +16,10 @@ import nibabel.gifti as ng
 
 # read parameters and subjects lists
 root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
-experiment = 'searchlight_analysis'
+experiment = 'searchlight_HC_SZ_radius_50'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
-n_sl_points = 50
+n_sl_points = 2500
 
 hemispheres_list = ['rh','lh']
 
@@ -38,7 +39,7 @@ for hem in hemispheres_list:
 # read mask to exclude pole points from the clusters
 # read texture of the pole mask, to be excluded from further analyses... (cluster stats & co)
     masktex_path = op.join(spheresampling_dir,'%s.fsaverage.polemask.%dpoints.gii' % (hem,n_sl_points))
-    masktex_gii = ng.read(masktex_path)
+    masktex_gii = nib.load(masktex_path)
     masktex_data = masktex_gii.darrays[0].data
     mask_inds = np.where(masktex_data)[0]
 

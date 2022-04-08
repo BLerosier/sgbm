@@ -7,7 +7,7 @@ import scipy.spatial.distance as sd
 
 # read parameters and subjects lists
 root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
-experiment = 'searchlight_analysis'
+experiment = 'searchlight_HC_SZ_radius_50'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 

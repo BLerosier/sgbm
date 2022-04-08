@@ -8,7 +8,7 @@ import joblib
 
 # read parameters and subjects lists
 root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
-experiment = 'searchlight_analysis'
+experiment = 'searchlight_HC_SZ_radius_50'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 sampleslist_path = op.join(analysis_dir,'samples_list.jl')
@@ -68,8 +68,8 @@ def create_permuted_labels_within_xval_folds(n_permuts,n_folds):
 def main():
     args = sys.argv[1:]
     if len(args) < 1:
-        n_permuts = 50
-        n_folds = 3
+        n_permuts = 5000
+        n_folds = 10
     else:
         n_permuts = int(args[0])
         n_folds = int(args[1])

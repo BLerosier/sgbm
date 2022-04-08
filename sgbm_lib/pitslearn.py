@@ -8,14 +8,15 @@ def get_clusters(statMap, connMatrix, threshold):
 
     subthresholdPointInds = np.where(statMap < threshold)[0]
     if len(subthresholdPointInds) <n_sl_points:
-        
+
         clusterGraph = connMatrix.copy()
         clusterGraph[subthresholdPointInds,:] = False
         clusterGraph[:,subthresholdPointInds] = False
         clusterGraph = np.array(clusterGraph)
-        
-        [n_clusters,clusterLabels] = csgraph.cs_graph_components(clusterGraph)
-        
+
+        #[n_clusters,clusterLabels] = csgraph.cs_graph_components(clusterGraph)
+        [n_clusters,clusterLabels] = csgraph.connected_components(clusterGraph)
+
         # get all cluster masses
         clusterMasses = []
         for i in range(n_clusters):
@@ -44,4 +45,3 @@ def get_center_of_cluster(clusterLabelMap, clusterLabel, sl_spherepoints_coords)
     thisclustercenter_ind = distances.argmin()
 
     return thisclustercenter_ind
-

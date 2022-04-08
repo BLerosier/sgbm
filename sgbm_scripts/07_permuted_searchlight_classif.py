@@ -118,7 +118,7 @@ def permuted_searchlight_classif(experiment, hem, graph_type, graph_param, n_sl_
                 #print('     Permutation %d of %d' % (perm_ind+1, n_permuts))
                 y_train_permuted = y_train_permuted_list[fold_ind][perm_ind]
                 y_test_permuted = y_test_permuted_list[fold_ind][perm_ind]
-                g_svc = SVC(kernel='precomputed',C=C)
+                g_svc = SVC(kernel='precomputed',C=C, class_weight='balanced')
                 g_svc.fit(K_train,y_train_permuted)
                 guesses = g_svc.predict(K_test)
                 skf_scores_permuted[fold_ind, point_ind, perm_ind] = accuracy_score(y_test_permuted,guesses)
@@ -135,7 +135,7 @@ def permuted_searchlight_classif(experiment, hem, graph_type, graph_param, n_sl_
         print('Creating new directory: %s' % res_dir)
     except:
         print('Output directory is %s' % res_dir)
-    res_path = op.join(res_dir,'%s.classif_res_%dpermuts_xval%02dfolds_diagnorm%s_C1e%d.jl' % (hem,n_permuts,n_folds,str(diagnorm_option).lower(),np.int(np.log10(C))))
+    res_path = op.join(res_dir,'%s.classif_res_%dpermuts_xval%02dfolds_diagnorm%s_C1e%d.jl' % (hem,n_permuts,n_folds,str(diagnorm_option).lower(),int(np.log10(C))))
     print('Saving all results in %s' % res_path)
     joblib.dump(skf_scores_permuted,res_path,compress=3)
 
@@ -156,7 +156,7 @@ def main():
         n_sl_points = int(args[4])
         n_permuts = int(args[5])
 
-    n_folds = 3
+    n_folds = 10
     permuted_searchlight_classif(experiment, hem, graph_type, graph_param, n_sl_points, n_folds, n_permuts, C=1., subkernels_option = False, diagnorm_option = True)
 
 

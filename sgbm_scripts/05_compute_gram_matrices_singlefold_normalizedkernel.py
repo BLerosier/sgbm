@@ -10,7 +10,7 @@ from pitskernel import sxdnewkernel
 root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 
 
-def searchlight_compute_gram_matrices_singlefold_normalizedkernel(experiment, hem, graph_type, graph_param, n_sl_points, fold_ind, n_folds=3, subkernels_option=False):
+def searchlight_compute_gram_matrices_singlefold_normalizedkernel(experiment, hem, graph_type, graph_param, n_sl_points, fold_ind, n_folds=10, subkernels_option=False):
     analysis_dir = op.join(root_analysis_dir, experiment)
 
     if subkernels_option:
@@ -129,7 +129,7 @@ def main():
         #n_folds = int(args[5])
         fold_ind = int(args[5])
 
-    searchlight_compute_gram_matrices_singlefold_normalizedkernel(experiment, hem, graph_type, graph_param, n_sl_points, fold_ind)
+    searchlight_compute_gram_matrices_singlefold_normalizedkernel(experiment, hem, graph_type, graph_param, n_sl_points, fold_ind, subkernels_option=True)
 
 
 if __name__ == "__main__":

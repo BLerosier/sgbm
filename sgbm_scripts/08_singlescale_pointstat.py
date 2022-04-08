@@ -12,6 +12,7 @@ import numpy as np
 import scipy.stats as st
 import sys
 import joblib
+import nibabel as nib
 import nibabel.gifti as ng
 from sklearn.preprocessing import StandardScaler
 import time
@@ -31,7 +32,7 @@ def point_stat(experiment, hem, graph_type, graph_param, n_sl_points, n_permuts,
     ###############################
     permuted_skf_list = []
     res_dir = op.join(analysis_dir,'searchlight','%s_based' % graph_type,'permuted_classif_res', '%s_%d' % (graph_type, graph_param), 'sl_%s_points' % n_sl_points)
-    res_path = op.join(res_dir,'%s.classif_res_%dpermuts_xval%02dfolds_diagnorm%s_C1e%d.jl' % (hem,n_permuts,n_folds,str(diagnorm_option).lower(),np.int(np.log10(C))))
+    res_path = op.join(res_dir,'%s.classif_res_%dpermuts_xval%02dfolds_diagnorm%s_C1e%d.jl' % (hem,n_permuts,n_folds,str(diagnorm_option).lower(),int(np.log10(C))))
     print('Reading permuted classif results from %s' % res_path)
     skf_scores_permuted = joblib.load(res_path)
 
@@ -41,7 +42,7 @@ def point_stat(experiment, hem, graph_type, graph_param, n_sl_points, n_permuts,
     # read mask to exclude pole points from the calculation of the fullcortex permuted distrib of classif scores
     spheresampling_dir = op.join(analysis_dir,'searchlight','sphere_sampling')
     masktex_path = op.join(spheresampling_dir,'%s.fsaverage.polemask.%dpoints.gii' % (hem,n_sl_points))
-    masktex_gii = ng.read(masktex_path)
+    masktex_gii = nib.load(masktex_path)
     masktex_data = masktex_gii.darrays[0].data
     fullcortex_inds = np.where(masktex_data==0)[0]
     # for each value of c, normalize the permuted distribution of average classif scores (computed over all the full cortex excluding the pole mask)
@@ -119,7 +120,7 @@ def point_stat(experiment, hem, graph_type, graph_param, n_sl_points, n_permuts,
 
     # read texture of the pole mask, to be excluded from further analyses... (cluster stats & co)
     masktex_path = op.join(spheresampling_dir,'%s.fsaverage.polemask.%dpoints.gii' % (hem,n_sl_points))
-    masktex_gii = ng.read(masktex_path)
+    masktex_gii = nib.load(masktex_path)
     masktex_data = masktex_gii.darrays[0].data
     mask_inds = np.where(masktex_data)[0]
     # first texture: the raw pointstat map...
@@ -156,7 +157,7 @@ def main():
         n_permuts = int(args[5])
 
 
-    n_folds = 3
+    n_folds = 10
     C=1.
     diagnorm_option=True
     '''for hem in hemispheres_list:

@@ -9,7 +9,7 @@ from sklearn.model_selection import StratifiedKFold
 
 # read parameters and subjects lists
 root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
-experiment = 'searchlight_analysis'
+experiment = 'searchlight_HC_SZ_radius_50'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 sampleslist_path = op.join(analysis_dir,'samples_list.jl')

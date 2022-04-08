@@ -22,7 +22,7 @@ mesh_subdir = ''
 # Le root_analysis_dir est le même pour tous les scripts
 root_analysis_dir = '/netapp/vol1_psy/basepsy/FS60'
 # Le nom "experiment" est le même pour tous les scripts
-experiment = 'searchlight_analysis'
+experiment = 'searchlight_HC_SZ_radius_50'
 analysis_dir = op.join(root_analysis_dir, experiment)
 
 subjectslist_path = op.join(analysis_dir,'subjects_list.jl')
